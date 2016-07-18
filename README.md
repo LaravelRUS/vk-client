@@ -5,7 +5,7 @@
 
 You can get library and all of it dependencies through [composer](https://getcomposer.org/)
 
-`composer require atehnix/vkclient`
+`composer require atehnix/vk-client:dev-master`
 
 ## Usage
 
@@ -38,7 +38,7 @@ Send multiple requests at once
         new Request('wall.get', ['owner_id' => 2]),
         // ... few requests
         new Request('wall.get', ['owner_id' => 25]),
-    ])
+    ]);
 
     $response = $api->send($execute);
 ```
@@ -75,7 +75,7 @@ Or set token for specific request.
 
     // ...
 
-    $token = $auth->getToken($_GET['code'])
+    $token = $auth->getToken($_GET['code']);
 ```
 
 ### License
