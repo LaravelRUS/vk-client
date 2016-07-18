@@ -11,7 +11,7 @@ You can get library and all of it dependencies through [composer](https://getcom
 
 ### Simple example
 
-```
+```php
     $api = new Client;
 
     $response = $api->request('wall.get', ['owner_id' => 1]);
@@ -19,7 +19,7 @@ You can get library and all of it dependencies through [composer](https://getcom
 
 ### Use Request class
 
-```
+```php
     $api = new Client;
 
     $request = new Request('wall.get', ['owner_id' => 1]);
@@ -30,7 +30,7 @@ You can get library and all of it dependencies through [composer](https://getcom
 
 Send multiple requests at once
 
-```
+```php
     $api = new Client;
 
     $execute = ExecuteRequest::make([
@@ -47,7 +47,7 @@ Send multiple requests at once
 
 Set default token in client.
 
-```
+```php
     $api = new Client;
 
     $api->setDefaultToken("some_token");
@@ -57,7 +57,7 @@ Set default token in client.
 
 Or set token for specific request.
 
-```
+```php
     $api = new Client;
 
     // Token in the request is a higher priority than the default token.
@@ -68,7 +68,7 @@ Or set token for specific request.
 
 ### Authorization
 
-```
+```php
     $auth = new Auth('client_id', 'client_secret', 'redirect_uri');
 
     echo "<a href='{$auth->getUrl()}'>ClickMe<a>";
