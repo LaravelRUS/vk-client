@@ -68,7 +68,7 @@ class Client
             'timeout'     => static::API_TIMEOUT,
             'http_errors' => false,
             'headers'     => [
-                'User-Agent' => 'github.com/atehnix/VkClient',
+                'User-Agent' => 'github.com/atehnix/vk-client',
                 'Accept'     => 'application/json',
             ],
         ]);
@@ -160,7 +160,7 @@ class Client
      * @param array $error
      * @return VkException
      */
-    public function getException($error)
+    protected function getException($error)
     {
         $message = isset($error['error_msg']) ? $error['error_msg'] : '';
         $code = isset($error['error_code']) ? $error['error_code'] : 0;

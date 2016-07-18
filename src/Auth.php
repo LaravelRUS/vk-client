@@ -78,7 +78,7 @@ class Auth
             'timeout'     => static::TIMEOUT,
             'http_errors' => false,
             'headers'     => [
-                'User-Agent' => 'github.com/atehnix/VkClient',
+                'User-Agent' => 'github.com/atehnix/vk-client',
                 'Accept'     => 'application/json',
             ],
         ]);

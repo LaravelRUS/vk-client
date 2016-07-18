@@ -79,4 +79,4 @@ Or set token for specific request.
 ```
 
 ### License
-[MIT](https://raw.github.com/atehnix/VkClient/master/LICENSE)
+[MIT](https://raw.github.com/atehnix/vk-client/master/LICENSE)
