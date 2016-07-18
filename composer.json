@@ -13,9 +13,6 @@
     "require": {
         "guzzlehttp/guzzle": "~6.0"
     },
-    "require-dev": {
-        "symfony/var-dumper": "^3.1"
-    },
     "autoload": {
         "psr-4": {
             "ATehnix\\VkClient\\": "src"
