@@ -174,7 +174,7 @@ class Client
      * @param array $error
      * @return VkException
      */
-    protected function getException($error)
+    public function getException($error)
     {
         $message = isset($error['error_msg']) ? $error['error_msg'] : '';
         $code = isset($error['error_code']) ? $error['error_code'] : 0;
@@ -191,7 +191,7 @@ class Client
             15 => Exceptions\AccessDeniedVkException::class,
         ];
 
-        $exception = $map[$code] ?: $map[0];
+        $exception = isset($map[$code]) ? $map[$code] : $map[0];
 
         return new $exception($message, $code);
     }
