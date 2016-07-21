@@ -11,6 +11,8 @@
 
 namespace ATehnix\VkClient\Requests;
 
+use ATehnix\VkClient\Contracts\ScriptableInterface;
+
 /**
  * Class Request
  *
@@ -30,14 +32,16 @@ class ExecuteRequest extends Request
     }
 
     /**
-     * @param Request[] $requests
+     * @param ScriptableInterface[] $requests
      * @return ExecuteRequest
      */
     public static function make(array $requests)
     {
         $scripts = array_map(function ($request) {
-            if (!$request instanceof Request) {
-                throw new \InvalidArgumentException('Argument must be an array instances of '.Request::class);
+            if (!$request instanceof ScriptableInterface) {
+                throw new \InvalidArgumentException(
+                    'Argument must be an array instances of '.ScriptableInterface::class
+                );
             }
 
             return $request->toScript();

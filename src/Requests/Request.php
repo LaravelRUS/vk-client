@@ -11,12 +11,15 @@
 
 namespace ATehnix\VkClient\Requests;
 
+use ATehnix\VkClient\Contracts\RequestInterface;
+use ATehnix\VkClient\Contracts\ScriptableInterface;
+
 /**
  * Class Request
  *
  * @package ATehnix\VkClient
  */
-class Request
+class Request implements RequestInterface, ScriptableInterface
 {
     /**
      * @var string

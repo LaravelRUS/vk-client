@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file is part of VkClient package.
  *
@@ -11,8 +10,8 @@
 
 namespace ATehnix\VkClient;
 
+use ATehnix\VkClient\Contracts\RequestInterface;
 use ATehnix\VkClient\Exceptions\VkException;
-use ATehnix\VkClient\Requests\Request;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
@@ -97,10 +96,10 @@ class Client
     }
 
     /**
-     * @param Request $request
+     * @param RequestInterface $request
      * @return array
      */
-    public function send(Request $request)
+    public function send(RequestInterface $request)
     {
         return $this->request(
             $request->getMethod(),
