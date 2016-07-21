@@ -148,11 +148,26 @@ class Client
     {
         $data = json_decode((string)$response->getBody(), true);
 
-        if (isset($data['error']) && !$this->passError) {
+        if (!$this->passError) {
+            $this->checkErrors($data);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param $data
+     * @throws VkException
+     */
+    protected function checkErrors($data)
+    {
+        if (isset($data['error'])) {
             throw $this->getException($data['error']);
         }
 
-        return isset($data['response']) ? $data['response'] : $data;
+        if (isset($data['execute_errors'][0])) {
+            throw $this->getException($data['execute_errors'][0]);
+        }
     }
 
     /**
