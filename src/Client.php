@@ -25,7 +25,7 @@ use Psr\Http\Message\ResponseInterface;
 class Client
 {
     const API_URI = 'https://api.vk.com/method/';
-    const API_VERSION = '5.52';
+    const API_VERSION = '5.53';
     const API_TIMEOUT = 30.0;
 
     /**
