@@ -162,11 +162,11 @@ class Client
     protected function checkErrors($data)
     {
         if (isset($data['error'])) {
-            throw self::getException($data['error']);
+            throw self::toException($data['error']);
         }
 
         if (isset($data['execute_errors'][0])) {
-            throw self::getException($data['execute_errors'][0]);
+            throw self::toException($data['execute_errors'][0]);
         }
     }
 
@@ -174,7 +174,7 @@ class Client
      * @param array $error
      * @return VkException
      */
-    public static function getException($error)
+    public static function toException($error)
     {
         $message = isset($error['error_msg']) ? $error['error_msg'] : '';
         $code = isset($error['error_code']) ? $error['error_code'] : 0;
