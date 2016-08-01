@@ -1,11 +1,12 @@
 # PHP client for Vk.com API
-
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/atehnix/vk-client/master/LICENSE)
+[![Packagist Version](https://img.shields.io/packagist/v/atehnix/vk-client.svg)](https://packagist.org/packages/atehnix/vk-client)
 
 ## Installation
 
 You can get library and all of it dependencies through [composer](https://getcomposer.org/)
 
-`composer require atehnix/vk-client:dev-master`
+`composer require atehnix/vk-client`
 
 ## Usage
 
