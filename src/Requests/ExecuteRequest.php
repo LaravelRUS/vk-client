@@ -33,9 +33,10 @@ class ExecuteRequest extends Request
 
     /**
      * @param ScriptableInterface[] $requests
+     * @param null|string $token
      * @return ExecuteRequest
      */
-    public static function make(array $requests)
+    public static function make(array $requests, $token = null)
     {
         $scripts = array_map(function ($request) {
             if (!$request instanceof ScriptableInterface) {
@@ -49,6 +50,6 @@ class ExecuteRequest extends Request
 
         $parameters['code'] = sprintf('return [%s];', implode(', ', $scripts));
 
-        return new static($parameters);
+        return new static($parameters, $token);
     }
 }
