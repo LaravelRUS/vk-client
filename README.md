@@ -1,6 +1,6 @@
 # PHP client for Vk.com API
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/atehnix/vk-client/master/LICENSE)
 [![Packagist Version](https://img.shields.io/packagist/v/atehnix/vk-client.svg)](https://packagist.org/packages/atehnix/vk-client)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/atehnix/vk-client/master/LICENSE)
 
 ## Installation
 
@@ -42,6 +42,11 @@ Send multiple requests at once
     ]);
 
     $response = $api->send($execute);
+```
+
+### Use a specific version of the API.
+```php
+  $api = new Client('5.60');
 ```
 
 ### Use with access token
