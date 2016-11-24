@@ -130,17 +130,29 @@ class Auth
         $data = json_decode((string)$response->getBody(), true);
 
         if (isset($data['error']) && !$this->passError) {
-            throw $this->getException($data);
+            throw self::toException($data);
         }
 
         return isset($data['access_token']) ? $data['access_token'] : $data;
     }
 
     /**
+     * Deprecated alias for toException() method
+     *
+     * @param array $data
+     * @return VkException
+     * @deprecated Will be removed in next release
+     */
+    protected function getException($data)
+    {
+        return self::toException($data);
+    }
+
+    /**
      * @param array $data
      * @return VkException
      */
-    protected function getException($data)
+    public static function toException($data)
     {
         $exception = ($data['error'] === 'invalid_grant')
             ? InvalidGrantVkException::class
