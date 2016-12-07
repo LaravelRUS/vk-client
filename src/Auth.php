@@ -26,7 +26,7 @@ class Auth
     const BASE_URI = 'https://oauth.vk.com/';
     const AUTHORIZE_URI = 'authorize?client_id=%s&scope=%s&redirect_uri=%s&response_type=code&display=page';
     const TOKEN_URI = 'access_token?client_id=%s&client_secret=%s&redirect_uri=%s&code=%s';
-    const TIMEOUT = 30;
+    const TIMEOUT = 60.0;
 
     /**
      * @var string

@@ -26,7 +26,7 @@ class Client
 {
     const API_URI = 'https://api.vk.com/method/';
     const API_VERSION = '5.60';
-    const API_TIMEOUT = 30.0;
+    const API_TIMEOUT = 60.0;
 
     /**
      * @var ClientInterface
