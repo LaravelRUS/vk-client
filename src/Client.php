@@ -130,6 +130,8 @@ class Client
     protected function buildOptions($parameters, $requestToken)
     {
         $parameters['v'] = $this->version;
+        $parameters['https'] = 1;
+
         $token = $requestToken ?: $this->token;
 
         if ($token) {
