@@ -137,18 +137,6 @@ class Auth
     }
 
     /**
-     * Deprecated alias for toException() method
-     *
-     * @param array $data
-     * @return VkException
-     * @deprecated Will be removed in next release
-     */
-    protected function getException($data)
-    {
-        return self::toException($data);
-    }
-
-    /**
      * @param array $data
      * @return VkException
      */
