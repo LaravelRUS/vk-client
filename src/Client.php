@@ -63,7 +63,16 @@ class Client implements ClientContract
     public function __construct($version = null, ClientInterface $http = null)
     {
         $this->version = $version ?: static::API_VERSION;
-        $this->http = $http ?: new HttpClient([
+        $this->http = $this->resolveHttpClient($http);
+    }
+
+    /**
+     * @param ClientInterface|null $http
+     * @return ClientInterface
+     */
+    private function resolveHttpClient(ClientInterface $http = null)
+    {
+        return $http ?: new HttpClient([
             'base_uri'    => static::API_URI,
             'timeout'     => static::API_TIMEOUT,
             'http_errors' => false,
