@@ -10,6 +10,7 @@
 
 namespace ATehnix\VkClient;
 
+use ATehnix\VkClient\Contracts\ClientInterface as ClientContract;
 use ATehnix\VkClient\Contracts\RequestInterface;
 use ATehnix\VkClient\Exceptions\VkException;
 use GuzzleHttp\Client as HttpClient;
@@ -22,10 +23,10 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @package ATehnix\VkClient
  */
-class Client
+class Client implements ClientContract
 {
     const API_URI = 'https://api.vk.com/method/';
-    const API_VERSION = '5.53';
+    const API_VERSION = '5.62';
     const API_TIMEOUT = 30.0;
 
     /**
@@ -62,7 +63,16 @@ class Client
     public function __construct($version = null, ClientInterface $http = null)
     {
         $this->version = $version ?: static::API_VERSION;
-        $this->http = $http ?: new HttpClient([
+        $this->http = $this->resolveHttpClient($http);
+    }
+
+    /**
+     * @param ClientInterface|null $http
+     * @return ClientInterface
+     */
+    private function resolveHttpClient(ClientInterface $http = null)
+    {
+        return $http ?: new HttpClient([
             'base_uri'    => static::API_URI,
             'timeout'     => static::API_TIMEOUT,
             'http_errors' => false,
@@ -98,6 +108,7 @@ class Client
     /**
      * @param RequestInterface $request
      * @return array
+     * @throws \ATehnix\VkClient\Exceptions\VkException
      */
     public function send(RequestInterface $request)
     {
@@ -113,8 +124,9 @@ class Client
      * @param array $parameters
      * @param string|null $token
      * @return array
+     * @throws \ATehnix\VkClient\Exceptions\VkException
      */
-    public function request($method, $parameters, $token = null)
+    public function request($method, $parameters = [], $token = null)
     {
         $options = $this->buildOptions($parameters, $token);
         $response = $this->http->request('POST', $method, $options);
@@ -156,11 +168,19 @@ class Client
     }
 
     /**
-     * @param $data
+     * @param array|false $data
      * @throws VkException
      */
     protected function checkErrors($data)
     {
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new VkException('Invalid VK response format: ' . json_last_error_msg());
+        }
+
+        if (!is_array($data)) {
+            throw new VkException('Invalid response format');
+        }
+
         if (isset($data['error'])) {
             throw self::toException($data['error']);
         }
@@ -191,6 +211,7 @@ class Client
             15 => Exceptions\AccessDeniedVkException::class,
         ];
 
+        /** @var \Exception|\Throwable $exception */
         $exception = isset($map[$code]) ? $map[$code] : $map[0];
 
         return new $exception($message, $code);
