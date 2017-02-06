@@ -10,6 +10,7 @@
 
 namespace ATehnix\VkClient;
 
+use ATehnix\VkClient\Contracts\ClientInterface as ClientContract;
 use ATehnix\VkClient\Contracts\RequestInterface;
 use ATehnix\VkClient\Exceptions\VkException;
 use GuzzleHttp\Client as HttpClient;
@@ -22,7 +23,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @package ATehnix\VkClient
  */
-class Client
+class Client implements ClientContract
 {
     const API_URI = 'https://api.vk.com/method/';
     const API_VERSION = '5.53';
@@ -98,6 +99,7 @@ class Client
     /**
      * @param RequestInterface $request
      * @return array
+     * @throws \ATehnix\VkClient\Exceptions\VkException
      */
     public function send(RequestInterface $request)
     {
@@ -113,8 +115,9 @@ class Client
      * @param array $parameters
      * @param string|null $token
      * @return array
+     * @throws \ATehnix\VkClient\Exceptions\VkException
      */
-    public function request($method, $parameters, $token = null)
+    public function request($method, $parameters = [], $token = null)
     {
         $options = $this->buildOptions($parameters, $token);
         $response = $this->http->request('POST', $method, $options);
@@ -147,6 +150,10 @@ class Client
     protected function getResponseData(ResponseInterface $response)
     {
         $data = json_decode((string)$response->getBody(), true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new VkException('Invalid VK response format: ' . json_last_error_msg());
+        }
 
         if (!$this->passError) {
             $this->checkErrors($data);
@@ -191,6 +198,7 @@ class Client
             15 => Exceptions\AccessDeniedVkException::class,
         ];
 
+        /** @var \Exception|\Throwable $exception */
         $exception = isset($map[$code]) ? $map[$code] : $map[0];
 
         return new $exception($message, $code);
