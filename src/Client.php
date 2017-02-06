@@ -160,10 +160,6 @@ class Client implements ClientContract
     {
         $data = json_decode((string)$response->getBody(), true);
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new VkException('Invalid VK response format: ' . json_last_error_msg());
-        }
-
         if (!$this->passError) {
             $this->checkErrors($data);
         }
@@ -172,11 +168,19 @@ class Client implements ClientContract
     }
 
     /**
-     * @param $data
+     * @param array|false $data
      * @throws VkException
      */
     protected function checkErrors($data)
     {
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new VkException('Invalid VK response format: ' . json_last_error_msg());
+        }
+
+        if (!is_array($data)) {
+            throw new VkException('Invalid response format');
+        }
+
         if (isset($data['error'])) {
             throw self::toException($data['error']);
         }
