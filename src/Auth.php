@@ -115,6 +115,22 @@ class Auth
      */
     public function getToken($code)
     {
+        $data = $this->getUserData($code);
+
+        if (!isset($data['access_token'])) {
+            throw new VkException('The access token is not present in the API response.');
+        }
+
+        return $data['access_token'];
+    }
+
+    /**
+     * @param string $code
+     * @return array
+     * @throws VkException
+     */
+    public function getUserData($code)
+    {
         if (!$code) {
             return null;
         }
@@ -133,7 +149,7 @@ class Auth
             throw self::toException($data);
         }
 
-        return isset($data['access_token']) ? $data['access_token'] : $data;
+        return $data;
     }
 
     /**
