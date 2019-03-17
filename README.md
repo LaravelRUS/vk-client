@@ -1,6 +1,8 @@
 # PHP client for Vk.com API
-[![Packagist Version](https://img.shields.io/packagist/v/atehnix/vk-client.svg)](https://packagist.org/packages/atehnix/vk-client)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/atehnix/vk-client/master/LICENSE)
+[![Packagist Version](https://img.shields.io/packagist/v/atehnix/vk-client.svg)](https://packagist.org/packages/atehnix/vk-client)
+[![Packagist Stats](https://poser.pugx.org/atehnix/vk-client/downloads)](https://packagist.org/packages/atehnix/vk-client/stats)
+
 
 ## Installation
 
